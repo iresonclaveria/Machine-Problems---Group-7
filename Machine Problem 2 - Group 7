@@ -1,0 +1,91 @@
+#include <iostream>
+#include <conio.h>
+#include <cmath>
+using namespace std;
+
+int main ()
+
+{
+// declaration of the variables for sides of the triangle
+float side1, side2, hyp, x1,x2,x3, y1, y2, y3, xcirc, ycirc;
+
+// input values for the length and coordinates of the triangle
+cout << " Enter the length of the 3 sides (last number must be hypotenuse or longest side): " << endl;
+cin>>side1;
+cin>>side2;
+cin>>hyp;
+cout << "Enter x and y coordinates for side 1: "<< endl;
+cin >> x1;
+cin >> y1;
+cout << "Enter x and y coordinates for side 2: "<< endl;
+cin >> x2;
+cin >> y2;
+cout << "Enter x and y coordinates for side 3: "<< endl;
+cin >> x3;
+cin >> y3;
+
+
+// Computation for interior angles
+float angle1, angle2, angle3;
+angle1 = ((side1*side1)+(side2*side2)-(hyp*hyp))/(2*side1*side2);  // formula for angle 1
+cout << "Interior angle 1: " <<acos(angle1)<< endl;
+
+angle2 = ((hyp*hyp)+(side1*side1)-(side2*side2))/(2*hyp*side1);  // formula for angle 2
+cout << "Interior angle 2: " <<acos(angle2)<< endl;
+
+cout << "Interior angle 3: "<< (3.14159-(angle1+angle2))<< endl;  // formula for angle 3
+
+// Determining if the triangle is obtuse, equilateral, scalene
+if (side1 == side2 && side2 == hyp && side1 == hyp) // Equilateral Triangle
+	cout << "The triangle is equilateral"<< endl;
+else if (side1 == side2 && side1 != hyp && side2!=hyp) // Isosceles Triangle
+	cout << "The triangle is isosceles"<< endl;
+else 													// Scalene Triangle
+	cout << "The triangle is scalene"<< endl; 
+
+float p, area; // define variable type
+
+// Calculation for perimeter and area
+p = side1+side2+hyp; // Perimeter formula
+cout << "The perimeter of the triangle is: "<< p<< endl; // display perimeter
+area = sqrt (p/2*sqrt(p/2-side1)*sqrt(p/2-side2)*sqrt(p/2-hyp)); // Area formula 
+cout << "The area of the triangle is: "<< area << endl; // display area
+
+// Determining if the triangle is obtuse, right or acute
+double rad90;
+rad90=1.5707963; // declare constant
+if (angle1==rad90 || angle2==rad90 || angle3==rad90 ) // Right triangle
+	cout << "Right triangle" << endl;
+else if (angle1<=rad90 && angle2 <= rad90 && angle3<=rad90) // Acute triangle
+	cout << "Acute triangle" << endl;
+else if (angle1 > rad90 || angle2 > rad90 || angle3 > rad90) // Obtuse triangle
+	cout << "Obtuse triangle"<< endl;
+	
+float apo, circ, slope1, slope2, mid1x, mid2x, mid1y, mid2y, neg1, neg2; // Calculating for apothem and circumcenter
+
+apo = side1/(2*tan(3.14159/3)); // Apothem formula
+cout << "The length of the apothem of the triangle is: " << apo << endl;
+
+// Midpoints formula
+mid1x= (x2+x1)/2;
+mid1y= (y2+y1)/2;
+mid2x= (x3+x1)/2;
+mid2y= (y3+y1)/2;
+
+
+// Slopes formula
+slope1 = (y2-y1)/(x2-x1);
+neg1 = -(1/slope1);
+slope2 = (y3-y1)/(x3-x1);
+neg2 = -(1/slope2);
+
+// formula for circumcenter
+ycirc = ((((neg1 * neg2 * mid2x) - (neg1 * mid2y)) / neg2) - (neg1 * mid1x) + mid1y) / (1 - (neg1 / neg2));
+xcirc = (ycirc - mid2y + (neg2 * mid2x)) / neg2;
+
+// display the circumcenter
+cout << "Circumcenter is at: (" << xcirc << ", " << ycirc << ")";
+
+_getch ();
+return 0;
+}
