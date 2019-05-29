@@ -1,0 +1,242 @@
+ //source file
+#include <iostream>
+#include <cmath>
+#include <conio.h>
+#include <string>
+#include <iomanip>
+#include <stdlib.h>
+#include <unistd.h>
+
+
+#define SIZE 50 // define the size of the array
+
+using namespace std;
+
+
+void bubbleSort(double arr[], string name[],int n); // no return type
+void swap1(double *xp, double *yp);
+
+
+int main()
+{ 
+	// declaration of variables
+	string name[SIZE];
+	
+	// declare the numbers for the variables
+	double q[9];
+	double sum;
+	double epercent;
+	
+	double pret[9];
+	double probset[3];
+	double sum2;
+	double epercent2;
+	
+	double prelim;
+	double epercent3;
+	
+	double final;
+	double epercent4;
+	
+	double finalg[SIZE];
+	
+	for (int i = 0 ; i < SIZE ; i++) // looping for the informations needed 
+	{
+		
+		cout << "NOTE: PLEASE INPUT YOUR SURNAME AND THE FIRST LETTER OF YOUR FIRST NAME WITHOUT SPACE/S."<<endl; 
+		cout << "STUDENT [" << i+1 << "] NAME : "; cin >> name[i]; // input the Student's names
+		
+		// 9 quizzes
+		cout << endl;
+		cout << "Enter the score of " << name[i] << "'s quizzes :" << endl;
+		for (int k = 0 ; k < 9 ; k++) // looping for the quiz scores of the students
+		{
+			do
+			{
+				q[k] = -1;
+				sum = 0;
+				
+				cout << "Q" << k+1 << " [ / 50] : "; cin >> q[k]; // input quiz scores
+			
+				if (q[k] < 0 || q[k] > 50) // conditions for the scores
+				{
+					cout << "You must enter a score between [0 - 50]!" << endl;
+					cout << "Q" << k+1 << " [ / 50] : "; cin >> q[k];
+				}
+			} while (q[k] < 0 || q[k] > 50);
+		}
+		
+		// get sum
+		for (int k = 0 ; k < 9 ; k++)
+		{
+			sum += q[k]; // formula to get the sum
+		}
+		
+		// output percentage
+		cout << endl;
+		epercent = (sum / 450) * 30; // formula for the equivalent percentage
+		cout << "Equivalent Percentage : " << epercent << "%" << endl; 
+		
+		// pre-test scores
+		cout << endl;
+		cout << "Enter the score of " << name[i] << "'s pre-tests :" << endl;
+		for (int k = 0 ; k < 9 ; k++) // looping for the pre-test scores of the students
+		{
+			do
+			{
+				pret[k] = -1;
+				
+				cout << "Pre-test " << k+1 << " [ / 100] : "; cin >> pret[k]; // input pre-test scores
+			
+				if (pret[k] < 0 || pret[k] > 100) // conditions for the pre-test scores
+				{
+					cout << "You must enter a score between [0 - 100]!" << endl;
+					cout << "Pre-test " << k+1 << " [ / 100] : "; cin >> pret[k]; 
+				}
+			} while (pret[k] < 0 || pret[k] > 100);
+		}
+		
+		cout << endl;
+		cout << "Enter the score of " << name[i] << "'s problem sets :" << endl; // input the problem set scores
+	
+		for (int k = 0 ; k < 3 ; k++) // lopping for the problem set scores of the students
+		{
+			do
+			{
+				probset[k] = -1;
+			
+				cout << "Problem set " << k+1 << " [ / 150] : "; cin >> probset[k]; // input problem set scores
+			
+				if (probset[k] < 0 || probset[k] > 150) // conditions when the problem set scores are greater than the overall score
+				{
+					cout << "You must enter a score between [0 - 150]!" << endl;
+					cout << "Problem set " << k+1 << " [ / 150] : "; cin >> probset[k];
+				}
+			} while (probset[k] < 0 || probset[k] > 150);
+		}
+	 
+	 	sum2 = 0;
+	 	// get sum
+	 	for (int k = 0 ; k < 9 ; k++)
+		{
+			sum2 += pret[k];
+		}
+		
+		for (int k = 0 ; k < 3 ; k++)
+		{
+			sum2 += probset[k];
+		}
+		
+		cout << endl;
+		epercent2 = (sum2 / 1350) * 15;
+		cout << "Equivalent Percentage : " << epercent2 << "%" << endl; // display equivalent percentage
+		
+		
+		// preliminary exam score 
+		cout << endl;
+		cout << "Enter the score of " << name[i] << "'s preliminary exam :" << endl;
+		do
+		{
+			prelim = -1;
+			
+			cout << "Preliminary Exam [ / 100] : "; cin >> prelim; // input preliminary examination score
+		
+			if (prelim < 0 || prelim > 100) // conditions when the preliminary examination score is greater than the overall score
+			{
+				cout << "You must enter a score between [0 - 100]!" << endl;
+				cout << "Preliminary Exam [ / 100] : "; cin >> prelim;
+			}
+		} while (prelim < 0 || prelim > 100);
+	
+		cout << endl;
+		epercent3 = (prelim / 100) * 25; // formula for equivalent percentage of preliminary examination
+		cout << "Equivalent Percentage : " << epercent3 << "%" << endl;
+		
+		// final examination score
+		cout << endl;
+		cout << "Enter the score of " << name[i] << "'s final exam :" << endl;
+		do
+		{
+			final = -1;
+			
+			cout << "Final Exam [ / 100] : "; cin >> final; // input final examination score
+		
+			if (final < 0 || final > 100) // conditions when the final examination score is greater than the overall score
+			{
+				cout << "You must enter a score between [0 - 100]!" << endl;
+				cout << "Final Exam [ / 100] : "; cin >> final;
+			}
+		} while (final < 0 || final > 100);
+	
+		cout << endl;
+		epercent4 = (final / 100) * 30;
+		cout << "Equivalent Percentage : " << epercent4 << "%" << endl;
+		
+		cout << endl;
+		finalg[i] = epercent + epercent2 + epercent3 + epercent4; // formula for the calculation of the final grade
+		cout << "Final grade: " << finalg[i] << endl; // display final grade of the students
+		
+		cout << "------------------------------" << endl;
+	}
+	
+	
+	cout << "FINAL GRADE COMPUTATION : " << endl;
+	cout << endl;
+	for (int i = 0 ; i < SIZE ; i++) // looping for the final grades and determining if the student passed or failed
+	{
+		if (finalg[i] >= 95.57 && finalg[i] <= 100) // conditions for the computed grade
+			cout << name[i] << "'s final grade : " << "1.00 with a raw grade of " << finalg[i] << "% [PASSED]" << endl;
+		else if (finalg[i] >= 91.12 && finalg[i] <= 95.56)
+			cout << name[i] << "'s final grade : " << "1.25 with a raw grade of " << finalg[i] << "% [PASSED]" << endl;
+		else if (finalg[i] >= 86.68 && finalg[i] <= 91.11)
+			cout << name[i] << "'s final grade : " << "1.50 with a raw grade of " << finalg[i] << "% [PASSED]" << endl;
+		else if (finalg[i] >= 82.23 && finalg[i] <= 86.67)
+			cout << name[i] << "'s final grade : " << "1.75 with a raw grade of " << finalg[i] << "% [PASSED]" << endl;
+		else if (finalg[i] >= 77.79 && finalg[i] <= 82.22)
+			cout << name[i] << "'s final grade : " << "2.00 with a raw grade of " << finalg[i] << "% [PASSED]" << endl;
+		else if (finalg[i] >= 73.34 && finalg[i] <= 77.78)
+			cout << name[i] << "'s final grade : " << "2.25 with a raw grade of " << finalg[i] << "% [PASSED]" << endl;
+		else if (finalg[i] >= 68.90 && finalg[i] <= 73.33)
+			cout << name[i] << "'s final grade : " << "2.50 with a raw grade of " << finalg[i] << "% [PASSED]" << endl;
+		else if (finalg[i] >= 64.45 && finalg[i] <= 68.89)
+			cout << name[i] << "'s final grade : " << "2.75 with a raw grade of " << finalg[i] << "% [PASSED]" << endl;
+		else if (finalg[i] >= 60.00 && finalg[i] <= 64.44)
+			cout << name[i] << "'s final grade : " << "3.00 with a raw grade of " << finalg[i] << "% [PASSED]" << endl;
+		else
+			cout << name[i] << "'s final grade : " << "5.00 with a raw grade of " << finalg[i] << "% [FAILED]" << endl;
+	}
+	
+	int n = sizeof(finalg)/sizeof(finalg[0]); 
+	bubbleSort(finalg, name, n);
+	
+	cout << "TOP 10: " << endl; 
+	for (int i = 0 ; i < SIZE ; i++)
+	{
+		cout << i+1 << ". NAME: " << name[i] << "\t FINAL RAW GRADE: " << finalg[i] << endl; // display the names and grades of the top 10 students
+	}
+}
+
+void bubbleSort(double arr[], string name[],int n) 
+{ 
+   int i, j; 
+   for (i = 0; i < n-1; i++) // sorting of values
+   {
+       for (j = 0; j < n-i-1; j++)
+	   {
+		   
+           if (arr[j] < arr[j+1])
+		   {
+		   		swap1(&arr[j], &arr[j+1]);
+		   		swap(name[j], name[j+1]);
+			}
+		}
+	}         
+} 
+
+void swap1(double *xp, double *yp) 
+{ 
+    double temp = *xp; 
+    *xp = *yp; 
+    *yp = temp; 
+}
+
